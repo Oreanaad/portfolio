@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "portfolio-master/dist" # Ajusta a tu carpeta de publicación
+  
+[functions]
+  directory = "netlify/functions" # Directorio donde se encuentran tus funciones
