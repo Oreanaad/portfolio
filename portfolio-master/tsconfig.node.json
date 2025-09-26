@@ -1,9 +1,16 @@
+
 {
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    
+    // 🔑 CORRECCIÓN: Dile a TS que solo busque los tipos esenciales, NO firebase.
+    "types": ["node"] // Solo necesitamos 'node' para los archivos de configuración
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "package.json"]
 }
