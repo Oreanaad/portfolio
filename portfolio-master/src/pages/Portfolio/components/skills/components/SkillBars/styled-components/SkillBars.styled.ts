@@ -103,7 +103,7 @@ export const SkillBarsGeneralDiv = styled.div `
     }
 
     .js { 
-        width: 70%;
+        width: 50%;
         animation: js 3s;
     }
     @keyframes js {
@@ -111,12 +111,12 @@ export const SkillBarsGeneralDiv = styled.div `
             width: 0%;
         }
         100% {
-            width: 70%;
+            width: 50%;
         }
     }
 
     .react { 
-        width: 90%;
+        width: 75%;
         animation: react 3s;
     }
     @keyframes react {
@@ -124,11 +124,11 @@ export const SkillBarsGeneralDiv = styled.div `
             width: 0%;
         }
         100% {
-            width: 90%;
+            width: 75%;
         }
     }
     .ts { 
-        width: 60%;
+        width: 40%;
         animation: ts 3s;
     }
     @keyframes ts {
@@ -136,7 +136,7 @@ export const SkillBarsGeneralDiv = styled.div `
             width: 0%;
         }
         100% {
-            width: 60%;
+            width: 40%;
         }
     }
 
