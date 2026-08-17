@@ -28,7 +28,10 @@ export default function SkillBars() {
       <ul>
         {SKILLS.map(({ name, level }) => (
           <li key={name}>
-            <h3>{name}</h3>
+            <div className="skill-row">
+              <h3>{name}</h3>
+              <span className="level">{level}%</span>
+            </div>
             <span
               className="bar"
               role="meter"

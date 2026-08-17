@@ -52,98 +52,88 @@ function ProjectCard({
 
 	return (
 		<ProjectCardContainer>
-			<Card sx={{ height: 400, display: 'flex', flexDirection: 'column' }}>
-				<CardHeader
-					avatar={
-						<Avatar sx={{ bgcolor: '#f30889', fontFamily: 'Centra' }} aria-hidden="true">
-							{logo}
-						</Avatar>
-					}
-					title={<h2>{title}</h2>}
-					subheader={<small>{category} · {sector}</small>}
-					sx={{
-						fontFamily: 'Centra',
-						bgcolor: 'var(--bg)',
-						borderStyle: 'solid solid hidden solid',
-						borderColor: '#f30889',
-						borderWidth: '1px',
-						borderRadius: '5px 5px 0px 0px',
-					}}
-				/>
-
-				{/* The whole thumbnail is a link to the live site. */}
-				<a href={href} target="_blank" rel="noreferrer" aria-label={`Open ${title} in a new tab`}>
-					<CardMedia
-						component="img"
-						image={img}
-						alt={alt}
-						loading="lazy"
-						sx={{
-							height: 200,
-							objectFit: 'cover',
-							objectPosition: 'top',
-							backgroundColor: '#f4f4f4',
-							borderStyle: 'hidden solid',
-							borderColor: '#f30889',
-							borderWidth: '1px',
-						}}
+			<div className="card-shell">
+				<Card sx={{ height: 368, display: 'flex', flexDirection: 'column' }}>
+					<CardHeader
+						avatar={
+							<Avatar
+								aria-hidden="true"
+								sx={{
+									width: 38,
+									height: 38,
+									fontSize: '0.85rem',
+									fontFamily: 'var(--mono)',
+									fontWeight: 700,
+									color: '#fff',
+									background: 'linear-gradient(135deg, var(--main-color), var(--accent-2))',
+								}}
+							>
+								{logo}
+							</Avatar>
+						}
+						title={<h2>{title}</h2>}
+						subheader={<small>{category} / {sector}</small>}
+						sx={{ bgcolor: 'transparent' }}
 					/>
-				</a>
 
-				<CardContent
-					sx={{
-						flexGrow: 1,
-						borderStyle: 'hidden solid',
-						borderColor: '#f30889',
-						borderWidth: '1px',
-					}}
-				>
-					<h5>{short}</h5>
-				</CardContent>
-
-				<CardActions
-					disableSpacing
-					sx={{
-						borderStyle: 'hidden solid solid solid',
-						borderColor: '#f30889',
-						borderWidth: '1px',
-						borderRadius: '0px 0px 5px 5px',
-					}}
-				>
-					{/* Availability indicators, not controls — static icons, not disabled buttons. */}
-					{web && (
-						<Tooltip title="Available on web">
-							<ComputerIcon aria-label="Available on web" sx={{ mx: 0.75, opacity: 0.6 }} />
-						</Tooltip>
-					)}
-					{mobile && (
-						<Tooltip title="Available on mobile">
-							<MobileFriendlyIcon aria-label="Available on mobile" sx={{ mx: 0.75, opacity: 0.6 }} />
-						</Tooltip>
-					)}
-
-					<a className="live-link" href={href} target="_blank" rel="noreferrer">
-						<span className="domain">{domain}</span>
-						<OpenInNewIcon sx={{ fontSize: 14, flexShrink: 0 }} aria-hidden="true" />
+					{/* The whole thumbnail is a link to the live site. */}
+					<a
+						className="thumb"
+						href={href}
+						target="_blank"
+						rel="noreferrer"
+						aria-label={`Open ${title} in a new tab`}
+					>
+						<CardMedia
+							component="img"
+							image={img}
+							alt={alt}
+							loading="lazy"
+							sx={{ height: 185, objectFit: 'cover', objectPosition: 'top' }}
+						/>
 					</a>
 
-					<ExpandMore
-						expand={expanded}
-						onClick={() => setExpanded(!expanded)}
-						aria-expanded={expanded}
-						aria-controls={detailId}
-						aria-label={expanded ? `Hide details about ${title}` : `Show details about ${title}`}
-					>
-						<ExpandMoreIcon />
-					</ExpandMore>
-				</CardActions>
-
-				<Collapse in={expanded} timeout="auto" unmountOnExit>
-					<CardContent id={detailId}>
-						<p>{detail}</p>
+					<CardContent sx={{ flexGrow: 1, py: 1.5 }}>
+						<h5>{short}</h5>
 					</CardContent>
-				</Collapse>
-			</Card>
+
+					<CardActions disableSpacing>
+						{/* Availability indicators, not controls — static icons, not buttons. */}
+						{web && (
+							<Tooltip title="Available on web">
+								<ComputerIcon className="platform-icon" aria-label="Available on web" />
+							</Tooltip>
+						)}
+						{mobile && (
+							<Tooltip title="Available on mobile">
+								<MobileFriendlyIcon className="platform-icon" aria-label="Available on mobile" />
+							</Tooltip>
+						)}
+
+						<a className="live-link" href={href} target="_blank" rel="noreferrer">
+							<span className="domain">{domain}</span>
+							<OpenInNewIcon sx={{ fontSize: 13, flexShrink: 0 }} aria-hidden="true" />
+						</a>
+
+						<ExpandMore
+							className="expand-btn"
+							expand={expanded}
+							onClick={() => setExpanded(!expanded)}
+							aria-expanded={expanded}
+							aria-controls={detailId}
+							aria-label={expanded ? `Hide details about ${title}` : `Show details about ${title}`}
+						>
+							<ExpandMoreIcon />
+						</ExpandMore>
+					</CardActions>
+
+					<Collapse in={expanded} timeout="auto" unmountOnExit>
+						<CardContent id={detailId}>
+							<p>{detail}</p>
+						</CardContent>
+					</Collapse>
+				</Card>
+			</div>
 		</ProjectCardContainer>
 	);
 }

@@ -74,24 +74,25 @@ export const AboutMeSpan = styled.span `
     display: inline-block;
  `;
 
-export const AboutMeH1 = styled.h1 ` 
-    font-size: 35px;
+export const AboutMeH1 = styled.h1 `
+    font-size: clamp(2rem, 5vw, 3.1rem);
     font-weight: 700;
-    letter-spacing: 0.8px;
-    line-height: 1;
-    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 14px;
     display: block;
- `;    
+ `;
 
-export const AboutMeP = styled.p ` 
-    font-size: 18px;
-    letter-spacing: 0.8px;
-    line-height: 1.5em;
-    max-width: 90%;
-    padding: auto;
+export const AboutMeP = styled.p `
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    line-height: 1.65em;
+    max-width: 54ch;
     text-align: center;
     display: block;
-    margin: auto;
+    margin: 0 auto 0.9rem;
+    color: var(--color);
+    opacity: 0.82;
  `;
 
 export const AboutMeButton = styled.button ` 
@@ -131,8 +132,23 @@ export const AboutMeImg = styled.img `
  `;
 
 
-export const AboutMeSpanTxtRotate = styled.span ` 
-    border-right: 0.08em solid #666;
+export const AboutMeSpanTxtRotate = styled.span `
+    /* Blinking caret sells the "being typed" effect. */
+    border-right: 0.08em solid var(--accent-2);
+    padding-right: 2px;
+    background: linear-gradient(90deg, var(--main-color), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: caret 1s step-end infinite;
+
+    @keyframes caret {
+        50% { border-right-color: transparent; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
  `;
 export const AboutMeDivJustifyCenter = styled.div `
     display: flex;
@@ -151,15 +167,31 @@ export const AboutMeDivJustifyCenter = styled.div `
         min-width: 0;
     }
 
+    /* Reads as the primary call to action, so it gets a real button shape. */
     .resume {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        margin-top: 14px;
+        padding: 0.7rem 1.6rem;
+        border-radius: 999px;
+        border: 1px solid var(--main-color);
+        background: var(--surface);
+        font-family: var(--mono);
+        font-size: 0.95rem;
         color: var(--main-color);
-        position: relative;
-        top: 10px;
-        font-size: 25px;
+        transition: box-shadow .3s ease, transform .3s ease, background .3s ease;
+
         & span {
-            font-size: 25px;
-            font-weight: 200;
+            font-size: 0.95rem;
+            font-weight: 500;
             color: var(--color);
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+            background: color-mix(in srgb, var(--main-color) 12%, transparent);
         }
     }
 

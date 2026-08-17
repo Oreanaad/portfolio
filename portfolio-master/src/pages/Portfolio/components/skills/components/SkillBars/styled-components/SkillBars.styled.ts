@@ -1,15 +1,10 @@
 import styled from "styled-components";
 
 export const SkillBarsGeneralDiv = styled.div`
-    list-style: none;
-    text-transform: uppercase;
-    width: 90%;
+    width: 100%;
     margin: 0px auto;
     color: var(--color);
-    padding: 0px;
-    @media (max-width:768px) {
-        width: 100%;
-    }
+    padding: 0 1rem;
 
     ul {
         list-style: none;
@@ -18,39 +13,52 @@ export const SkillBarsGeneralDiv = styled.div`
     }
 
     li {
-        margin: 5px 0;
-        padding: 5px;
+        margin: 0 0 0.85rem;
     }
 
     h4 {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
         text-align: left;
-        padding-left: 20px;
+        padding: 10px 0 14px;
         span {
             color: var(--main-color);
-            font-size: 2rem;
         }
+    }
+
+    .skill-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 6px;
     }
 
     h3 {
-        margin: 5px;
+        margin: 0;
         text-align: left;
-        font-size: 0.85rem;
-        letter-spacing: 0.03em;
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--color);
+        opacity: 0.9;
+    }
+
+    .level {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--muted);
     }
 
     .bar {
-        background: #353b48;
         display: block;
-        height: 20px;
-        border: 1px solid rgba(0,0,0,0.3);
-        border-radius: 10px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
         overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-
-        &:hover {
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        }
     }
 
     /* One rule drives every bar; --level is set per skill from the component. */
@@ -58,8 +66,10 @@ export const SkillBarsGeneralDiv = styled.div`
         display: block;
         height: 100%;
         width: var(--level);
-        background: linear-gradient(135deg, rgba(236,0,140,1) 0%, rgba(252,103,103,1) 100%);
-        animation: grow 1.5s ease-out;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--main-color), var(--accent-2));
+        box-shadow: 0 0 12px rgba(243, 8, 137, 0.45);
+        animation: grow 1.4s cubic-bezier(.2,.7,.3,1);
     }
 
     @keyframes grow {

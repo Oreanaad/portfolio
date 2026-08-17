@@ -1,27 +1,51 @@
 /* The active theme is always set as data-theme on <html> by ColorSchemeActive(),
    so these two blocks are the single source of truth for colour. */
 [data-theme="dark"] {
-  --bg: #000000;
-  --color: #ffffff;
+  --bg: #05060a;
+  --color: #e8ecf1;
+  --muted: #8b94a3;
+
   --main-color: #f30889;
-  --input-bg: #000000c1;
-  --input-bg-hover: #000000;
+  --accent-2: #22d3ee;
+
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-solid: #0c0f16;
+  --surface-border: rgba(255, 255, 255, 0.10);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glow: 0 0 28px rgba(243, 8, 137, 0.30);
+  --glow-2: 0 0 28px rgba(34, 211, 238, 0.22);
+
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --input-bg-hover: rgba(255, 255, 255, 0.06);
   --bgImg: url("/src/pages/Portfolio/components/about-me/assets/img/banner-bgd.webp");
-  --navbarShadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+  --navbarShadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 30px rgba(0, 0, 0, 0.6);
 }
 
 [data-theme="light"] {
   --bg: #ffffff;
-  --color: #000000;
+  --color: #0b0f14;
+  --muted: #5b6472;
+
   --main-color: #f30889;
-  --input-bg: #ffffffd6;
+  --accent-2: #0891b2;
+
+  --surface: rgba(0, 0, 0, 0.02);
+  --surface-solid: #ffffff;
+  --surface-border: rgba(0, 0, 0, 0.10);
+  --grid-line: rgba(0, 0, 0, 0.04);
+  --glow: 0 0 28px rgba(243, 8, 137, 0.16);
+  --glow-2: 0 0 28px rgba(8, 145, 178, 0.14);
+
+  --input-bg: rgba(0, 0, 0, 0.02);
   --input-bg-hover: #ffffff;
   --bgImg: url("/src/pages/Portfolio/components/about-me/assets/img/banner-bg.webp");
-  --navbarShadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --navbarShadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Metadata — dates, tech tags, domains — reads as "engineering" in mono. */
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   line-height: 1.5;
   font-weight: 400;
 
@@ -43,6 +67,32 @@ body {
   background-color: var(--bg);
 }
 
+/* Blueprint grid + a soft accent wash, fixed behind everything. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px, 56px 56px;
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 40%, transparent 100%);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 300px at 15% 0%, rgba(243, 8, 137, 0.10), transparent 70%),
+    radial-gradient(600px 300px at 85% 10%, rgba(34, 211, 238, 0.08), transparent 70%);
+}
+
 a {
   color: var(--color);
 }
@@ -57,6 +107,19 @@ span {
 /* 16px keeps iOS from zooming in when a field takes focus. */
 input, select, textarea {
   font-size: 16px;
+}
+
+/* Small uppercase mono label used above each section. */
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.kicker b {
+  color: var(--main-color);
+  font-weight: 700;
 }
 
 /* Added to <html> for one second when the theme toggle is pressed, so the whole

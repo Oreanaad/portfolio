@@ -1,5 +1,18 @@
 .selectedLink {
   color: #f30889;
+  position: relative;
+}
+
+/* Underline marks the active section without shifting the layout. */
+.selectedLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f30889, var(--accent-2));
 }
 
 /* Follows the active theme instead of hard-coding black/white per theme. */

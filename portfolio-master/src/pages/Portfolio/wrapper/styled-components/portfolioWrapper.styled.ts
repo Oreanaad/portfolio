@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PortfolioWrapperNav = styled.nav` 
+export const PortfolioWrapperNav = styled.nav`
     display: flex;
     align-items: center;
     padding: .4rem;
@@ -10,14 +10,27 @@ export const PortfolioWrapperNav = styled.nav`
     position: fixed;
     top: 0;
     z-index: 100;
-    background-color: var(--bg);
-    
+    /* Frosted bar so content scrolls under it instead of vanishing behind a slab. */
+    background-color: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid var(--surface-border);
+
+    /* Browsers without color-mix keep a solid bar rather than a see-through one. */
+    @supports not (background-color: color-mix(in srgb, red 50%, transparent)) {
+        background-color: var(--bg);
+    }
+
     h2 {
-        
-        font-weight: 1000;
+        font-family: var(--mono);
+        font-weight: 700;
+        letter-spacing: -0.02em;
         span {
             font-weight: 200;
-            color: #f30889;
+            background: linear-gradient(90deg, #f30889, var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     }
     a {

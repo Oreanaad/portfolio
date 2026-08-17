@@ -5,7 +5,12 @@ export const ExperienceContainer = styled.div`
     padding: 0 1rem;
 
     h4 {
-        padding: 10px 0;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 10px 0 14px;
         text-align: left;
         span {
             color: var(--main-color);
@@ -19,71 +24,100 @@ export const ExperienceList = styled.ol`
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 `;
 
 export const ExperienceItem = styled.li`
     position: relative;
-    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
-    border: 1px solid var(--main-color);
-    border-radius: 12px;
-    background-color: var(--bg);
+    padding: 1.35rem 1.35rem 1.35rem 1.6rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    background: var(--surface-solid);
+    background-image: linear-gradient(180deg, var(--surface), transparent 45%);
     text-align: left;
+    overflow: hidden;
+    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
 
-    /* Accent bar echoes the pink used across the cards and the timeline. */
+    /* Accent rail running down the left edge. */
     &::before {
         content: '';
         position: absolute;
         left: 0;
-        top: 12px;
-        bottom: 12px;
-        width: 4px;
-        border-radius: 0 4px 4px 0;
-        background-color: var(--main-color);
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--main-color), var(--accent-2));
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        border-color: transparent;
+        box-shadow: var(--glow);
     }
 
     .role {
         margin: 0;
-        font-size: 1.15rem;
+        font-size: 1.12rem;
         font-weight: 700;
+        letter-spacing: -0.01em;
         color: var(--color);
     }
 
     .company {
-        color: var(--main-color);
-        font-weight: 600;
+        background: linear-gradient(90deg, var(--main-color), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
     }
 
     .meta {
-        margin: 0.15rem 0 0.75rem;
-        font-size: 0.85rem;
-        opacity: 0.85;
+        margin: 0.3rem 0 0.85rem;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        color: var(--muted);
     }
 
     .stack {
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.9rem;
     }
 
     .stack span {
-        font-size: 0.72rem;
-        letter-spacing: 0.02em;
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
-        padding: 0.2rem 0.55rem;
-        border-radius: 999px;
-        border: 1px solid var(--main-color);
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        border: 1px solid var(--surface-border);
+        background: var(--surface);
         color: var(--color);
+        opacity: 0.9;
     }
 
     ul {
         margin: 0;
-        padding-left: 1.1rem;
+        padding: 0;
+        list-style: none;
         li {
-            margin-bottom: 0.4rem;
-            line-height: 1.45;
-            font-size: 0.93rem;
+            position: relative;
+            padding-left: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: var(--color);
+            opacity: 0.86;
+        }
+        /* Mono arrow instead of a bullet, to match the metadata styling. */
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-2);
         }
     }
 `;
