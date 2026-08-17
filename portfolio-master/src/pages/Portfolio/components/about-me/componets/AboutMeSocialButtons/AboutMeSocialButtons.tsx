@@ -12,8 +12,8 @@ const SOCIALS = [
 		Icon: Linkedin,
 	},
 	{
-		href: 'https://www.instagram.com/oreanaad20/',
-		label: 'Instagram profile',
+		href: 'https://www.instagram.com/thundskills/',
+		label: 'Thunderskills on Instagram',
 		hover: '#E4405F',
 		Icon: Instagram,
 	},
