@@ -51,7 +51,9 @@ exports.handler = async (event) => {
   // EMAIL_USER / EMAIL_PASS are the names this site was already configured
   // with, so both spellings are accepted and SMTP_* simply wins when set.
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
-  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+  // Google displays app passwords grouped as "abcd efgh ijkl mnop"; pasted
+  // verbatim those spaces are sent to the SMTP server and auth fails.
+  const pass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
   const to = process.env.MAIL_TO || user;
 
   if (!user || !pass) {
