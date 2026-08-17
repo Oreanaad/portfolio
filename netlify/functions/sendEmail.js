@@ -48,12 +48,14 @@ exports.handler = async (event) => {
     }
   }
 
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  // EMAIL_USER / EMAIL_PASS are the names this site was already configured
+  // with, so both spellings are accepted and SMTP_* simply wins when set.
+  const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
   const to = process.env.MAIL_TO || user;
 
   if (!user || !pass) {
-    console.error('Missing SMTP_USER / SMTP_PASS environment variables');
+    console.error('Missing SMTP_USER/EMAIL_USER and SMTP_PASS/EMAIL_PASS environment variables');
     return json(500, { ok: false, error: 'Could not send the message' });
   }
 
