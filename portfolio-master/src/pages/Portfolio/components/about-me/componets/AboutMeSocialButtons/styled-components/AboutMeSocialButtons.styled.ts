@@ -6,13 +6,12 @@ export const AboutMeSocialButtonsDiv = styled.div`
         margin: 0;
         margin-left: 10px;
         margin-top: 60px;
-        //transform: translate(-50%, -50%);
         display: flex;
 
         & li {
             list-style: none;
             margin: 0 10px;
-        
+
             & svg {
                 transition: .6s;
                 color: inherit;
@@ -33,32 +32,13 @@ export const AboutMeSocialButtonsDiv = styled.div`
                 box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
             }
 
+            /* --hover-bg is set per link in the component, so the brand colour
+               follows the link rather than its position in the list. */
             & a:hover {
-                
                 color: var(--bg);
+                background-color: var(--hover-bg);
                 transform: translate(0, -10px);
             }
-
-            
-
-    } 
-    & li:nth-child(1) a:hover {
-        color: var(--bg);
-        background-color: #0d559e;
+        }
     }
-    & li:nth-child(2) a:hover {
-        color: var(--bg);
-        background-color: #1877F2;
-    }
-    & li:nth-child(3) a:hover {
-        color: var(--bg);
-        background-color: #E4405F;
-    }
-    & li:nth-child(4) a:hover {
-        color: var(--bg);
-        background-color: #6cc644;
-    }
-
-}
-
 `
