@@ -11,7 +11,7 @@ const SKILLS: Skill[] = [
   { name: 'JavaScript', level: 60 },
   { name: 'TypeScript', level: 40 },
   { name: 'Node.js', level: 50 },
-  { name: 'Next.js', level: 50 },
+  { name: 'Next.js', level: 70 },
   { name: 'Genexus', level: 80 },
   { name: 'HTML', level: 100 },
   { name: 'CSS / Bootstrap / Tailwind', level: 80 },
