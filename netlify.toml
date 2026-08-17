@@ -9,13 +9,6 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Gives the front end a clean, provider-agnostic endpoint to POST to.
-[[redirects]]
-  from = "/api/contact"
-  to = "/.netlify/functions/sendEmail"
-  status = 200
-  force = true
-
 # SPA fallback: every other path is handled by the React router.
 [[redirects]]
   from = "/*"

@@ -76,7 +76,7 @@ Netlify builds from the repository root using `netlify.toml`:
 - **Build command** `npm run build` — installs and builds `portfolio-master/`
 - **Publish directory** `portfolio-master/dist`
 - **Functions** `netlify/functions`
-- `/api/contact` is rewritten to the `sendEmail` function
+- The contact form posts to `/.netlify/functions/sendEmail`
 - Every other path falls back to `index.html` for the client-side router
 
 ## License

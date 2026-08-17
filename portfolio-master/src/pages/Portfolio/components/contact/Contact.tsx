@@ -37,7 +37,10 @@ function Contact() {
     setButtonText('Sending...');
 
     try {
-      const res = await fetch('/api/contact', {
+      // The function's own path, not a /api/contact rewrite: that rewrite
+      // resolved to a 404 in production even though the function itself
+      // answered correctly here.
+      const res = await fetch('/.netlify/functions/sendEmail', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
