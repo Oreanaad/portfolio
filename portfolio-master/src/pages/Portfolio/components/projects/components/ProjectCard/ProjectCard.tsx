@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { styled } from '@mui/material/styles';
 import { ProjectCardContainer } from './styled-components';
+import { useI18n } from '@/i18n';
 
 interface ExpandMoreProps extends IconButtonProps {
 	expand: boolean;
@@ -47,6 +48,7 @@ interface Props {
 function ProjectCard({
 	logo, title, category, sector, short, img, alt, detail, href, domain, web, mobile,
 }: Props): JSX.Element {
+	const { t } = useI18n();
 	const [expanded, setExpanded] = React.useState(false);
 	const detailId = `project-detail-${title.replace(/\s+/g, '-').toLowerCase()}`;
 
@@ -82,7 +84,7 @@ function ProjectCard({
 						href={href}
 						target="_blank"
 						rel="noreferrer"
-						aria-label={`Open ${title} in a new tab`}
+						aria-label={t.a11y.openIn(title)}
 					>
 						<CardMedia
 							component="img"
@@ -100,13 +102,13 @@ function ProjectCard({
 					<CardActions disableSpacing>
 						{/* Availability indicators, not controls — static icons, not buttons. */}
 						{web && (
-							<Tooltip title="Available on web">
-								<ComputerIcon className="platform-icon" aria-label="Available on web" />
+							<Tooltip title={t.a11y.onWeb}>
+								<ComputerIcon className="platform-icon" aria-label={t.a11y.onWeb} />
 							</Tooltip>
 						)}
 						{mobile && (
-							<Tooltip title="Available on mobile">
-								<MobileFriendlyIcon className="platform-icon" aria-label="Available on mobile" />
+							<Tooltip title={t.a11y.onMobile}>
+								<MobileFriendlyIcon className="platform-icon" aria-label={t.a11y.onMobile} />
 							</Tooltip>
 						)}
 
@@ -121,7 +123,7 @@ function ProjectCard({
 							onClick={() => setExpanded(!expanded)}
 							aria-expanded={expanded}
 							aria-controls={detailId}
-							aria-label={expanded ? `Hide details about ${title}` : `Show details about ${title}`}
+							aria-label={expanded ? t.a11y.hideDetails(title) : t.a11y.showDetails(title)}
 						>
 							<ExpandMoreIcon />
 						</ExpandMore>

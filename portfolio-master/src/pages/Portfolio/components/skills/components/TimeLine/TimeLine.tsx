@@ -12,109 +12,56 @@ import WorkIcon from '@mui/icons-material/Work';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import { TimeLineContainer, TimeLineHeader } from './styled-components';
+import { useI18n } from '@/i18n';
 
 type DotColor = 'primary' | 'secondary' | 'grey';
 
-interface Milestone {
-    year: string;
-    title: string;
-    detail: string;
-    icon: JSX.Element;
-    color?: DotColor;
-    outlined?: boolean;
-}
-
-const MILESTONES: Milestone[] = [
-    {
-        year: '2020',
-        title: 'Systems Engineering',
-        detail: 'Started at Universidad Bicentenaria de Aragua',
-        icon: <SchoolIcon />,
-        outlined: true,
-    },
-    {
-        year: '2023',
-        title: 'Web Development diploma',
-        detail: 'JavaScript, HTML, CSS and Node.js',
-        icon: <CodeIcon />,
-        color: 'primary',
-    },
-    {
-        year: '2023',
-        title: 'Software Development Intern',
-        detail: 'Kawatek — games for patient rehabilitation',
-        icon: <SportsEsportsIcon />,
-        color: 'secondary',
-    },
-    {
-        year: '2024',
-        title: 'Neural Networks with Python',
-        detail: 'Universidad Central de Venezuela',
-        icon: <PsychologyIcon />,
-        color: 'primary',
-        outlined: true,
-    },
-    {
-        year: '2024',
-        title: 'Systems Engineer',
-        detail: 'Graduated from Universidad Bicentenaria de Aragua',
-        icon: <SchoolIcon />,
-        color: 'primary',
-    },
-    {
-        year: '2025',
-        title: 'Biomedical Engineering diploma',
-        detail: 'Universidad Simón Bolívar',
-        icon: <BiotechIcon />,
-        color: 'primary',
-        outlined: true,
-    },
-    {
-        year: '2025',
-        title: 'Full Stack Developer',
-        detail: 'EME Solutions, remote — Genexus, React, Node.js',
-        icon: <WorkIcon />,
-        color: 'secondary',
-    },
-    {
-        year: 'Now',
-        title: "Master's in Biomedical Engineering",
-        detail: 'In progress',
-        icon: <SchoolIcon />,
-        color: 'primary',
-        outlined: true,
-    },
+/** Presentation per milestone, positional so it stays language-agnostic. */
+const STYLES: { icon: JSX.Element; color?: DotColor; outlined?: boolean }[] = [
+    { icon: <SchoolIcon />, outlined: true },
+    { icon: <CodeIcon />, color: 'primary' },
+    { icon: <SportsEsportsIcon />, color: 'secondary' },
+    { icon: <PsychologyIcon />, color: 'primary', outlined: true },
+    { icon: <SchoolIcon />, color: 'primary' },
+    { icon: <BiotechIcon />, color: 'primary', outlined: true },
+    { icon: <WorkIcon />, color: 'secondary' },
+    { icon: <SchoolIcon />, color: 'primary', outlined: true },
 ];
 
 export default function CustomizedTimeline() {
+    const { t } = useI18n();
+
     return (
         <TimeLineContainer>
             <TimeLineHeader>
-                <h4><span>.</span>TIMELINE</h4>
+                <h4><span>.</span>{t.skills.labelTimeline}</h4>
             </TimeLineHeader>
             <Timeline position="alternate" sx={{ px: 0 }}>
-                {MILESTONES.map((item, index) => (
-                    <TimelineItem key={`${item.year}-${item.title}`}>
-                        <TimelineOppositeContent sx={{ m: 'auto 0' }} variant="body2">
-                            {item.year}
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            {/* No connector above the first dot or below the last one. */}
-                            {index > 0 ? <TimelineConnector /> : <span />}
-                            <TimelineDot
-                                color={item.color}
-                                variant={item.outlined ? 'outlined' : 'filled'}
-                            >
-                                {item.icon}
-                            </TimelineDot>
-                            {index < MILESTONES.length - 1 ? <TimelineConnector /> : <span />}
-                        </TimelineSeparator>
-                        <TimelineContent sx={{ py: '12px', px: 2 }}>
-                            <h3>{item.title}</h3>
-                            <p>{item.detail}</p>
-                        </TimelineContent>
-                    </TimelineItem>
-                ))}
+                {t.timeline.map((item, index) => {
+                    const style = STYLES[index] ?? {};
+                    return (
+                        <TimelineItem key={`${item.year}-${item.title}`}>
+                            <TimelineOppositeContent sx={{ m: 'auto 0' }} variant="body2">
+                                {item.year}
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                {/* No connector above the first dot or below the last one. */}
+                                {index > 0 ? <TimelineConnector /> : <span />}
+                                <TimelineDot
+                                    color={style.color}
+                                    variant={style.outlined ? 'outlined' : 'filled'}
+                                >
+                                    {style.icon}
+                                </TimelineDot>
+                                {index < t.timeline.length - 1 ? <TimelineConnector /> : <span />}
+                            </TimelineSeparator>
+                            <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                <h3>{item.title}</h3>
+                                <p>{item.detail}</p>
+                            </TimelineContent>
+                        </TimelineItem>
+                    );
+                })}
             </Timeline>
         </TimeLineContainer>
     );

@@ -5,6 +5,7 @@ import { PublicRoutes } from './models'
 import { SnackbarUtilitiesConfigurator } from './utilities'
 import { lazy, Suspense } from 'react'
 import { Spinner } from '@/components'
+import { I18nProvider } from '@/i18n'
 import PortfolioWrapper from './pages/Portfolio/wrapper/PortfolioWrapper'
 
 const AboutMe = lazy(() => import('./pages/Portfolio/components/about-me/AboutMe'))
@@ -15,6 +16,7 @@ const Contact = lazy(() => import('./pages/Portfolio/components/contact/Contact'
 function App() {
   return (
     <div className='App'>
+      <I18nProvider>
       <SnackbarProvider>
         <SnackbarUtilitiesConfigurator />
         <BrowserRouter>
@@ -65,6 +67,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </SnackbarProvider>
+      </I18nProvider>
     </div>
   )
 }

@@ -1,4 +1,6 @@
 import BurguerButton from "@/components/BurguerButton/BurguerButton"
+import { LanguageToggle } from "@/components"
+import { useI18n } from "@/i18n"
 import { NavLinks } from "@/models"
 import { ColorSchemeActive } from "@/utilities"
 import { useCallback, useEffect, useState } from "react"
@@ -12,6 +14,7 @@ function PortfolioWrapper() {
   const mid = "ME"
   const end = "/>"
   const location = useLocation()
+  const { t } = useI18n()
   const [colorScheme, setColorScheme] = useState<string>(ColorSchemeActive())
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -54,11 +57,11 @@ function PortfolioWrapper() {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to content</a>
+      <a className="skip-link" href="#main-content">{t.a11y.skip}</a>
       <PortfolioWrapperNav>
         <h2>{start}<span>{mid}</span>{end}</h2>
         <div id="main-nav-links" className={`links ${menuOpen ? 'active' : ''}`}>
-          {NavLinks.map(({ to, label }) => (
+          {NavLinks.map(({ to, key }) => (
             <NavLink
               key={to}
               to={to}
@@ -68,7 +71,7 @@ function PortfolioWrapper() {
                   : (menuOpen ? 'unselecetedLinkMob' : 'unselecetedLinkWeb')
               }
             >
-              {label}
+              {t.nav[key]}
             </NavLink>
           ))}
         </div>
@@ -76,14 +79,16 @@ function PortfolioWrapper() {
           id="switch"
           className="switch"
           onClick={handleClickTheme}
-          aria-label={colorScheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-label={colorScheme === 'dark' ? t.a11y.toLight : t.a11y.toDark}
         >
           {colorScheme === 'dark' ? <SunFill size={25} /> : <MoonFill size={25} />}
         </button>
+        <LanguageToggle />
         <div className="burguer">
           <BurguerButton
             clicked={menuOpen}
             handleClick={() => setMenuOpen((open) => !open)}
+            label={menuOpen ? t.a11y.closeMenu : t.a11y.openMenu}
           />
         </div>
       </PortfolioWrapperNav>

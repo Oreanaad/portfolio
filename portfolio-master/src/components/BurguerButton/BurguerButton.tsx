@@ -3,16 +3,17 @@ import styled from 'styled-components';
 interface Props {
   clicked: boolean;
   handleClick: () => void;
+  label: string;
 }
 
-function BurguerButton({ clicked, handleClick }: Props) {
+function BurguerButton({ clicked, handleClick, label }: Props) {
   return (
     <Burguer>
       <button
         type="button"
         onClick={handleClick}
         className={`icon nav-icon-5 ${clicked ? 'open' : ''}`}
-        aria-label={clicked ? 'Close menu' : 'Open menu'}
+        aria-label={label}
         aria-expanded={clicked}
         aria-controls="main-nav-links"
       >

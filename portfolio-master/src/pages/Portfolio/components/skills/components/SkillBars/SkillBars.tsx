@@ -9,7 +9,7 @@ interface Skill {
 const SKILLS: Skill[] = [
   { name: 'React.js', level: 75 },
   { name: 'JavaScript', level: 60 },
-  { name: 'TypeScript', level: 40 },
+  { name: 'TypeScript', level: 60 },
   { name: 'Node.js', level: 50 },
   { name: 'Next.js', level: 70 },
   { name: 'Genexus', level: 80 },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard, faEnvelope, faInbox, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import 'animate.css';
@@ -7,14 +7,21 @@ import { ContactSection } from './styled-components/Contact.styled';
 import contactImg from './assets/contacImg.webp';
 import { ContactEmptyForm, ContactType } from '@/models';
 import { SnackbarUtilities } from '@/utilities';
+import { useI18n } from '@/i18n';
 
 type FieldName = keyof ContactType;
 
 function Contact() {
-  const [buttonText, setButtonText] = useState<string>('Send');
+  const { t } = useI18n();
+  const [buttonText, setButtonText] = useState<string>(t.contact.send);
   const [sending, setSending] = useState<boolean>(false);
   const [form, setForm] = useState<ContactType>(ContactEmptyForm);
   const [focused, setFocused] = useState<FieldName | null>(null);
+
+  // Re-label the idle button when the language changes.
+  useEffect(() => {
+    if (!sending) setButtonText(t.contact.send);
+  }, [t, sending]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -34,7 +41,7 @@ function Contact() {
     if (sending) return;
 
     setSending(true);
-    setButtonText('Sending...');
+    setButtonText(t.contact.sending);
 
     try {
       // The function's own path, not a /api/contact rewrite: that rewrite
@@ -54,18 +61,18 @@ function Contact() {
       const data = await res.json().catch(() => ({ ok: false }));
       if (!res.ok || !data.ok) throw new Error(data.error || 'Error sending');
 
-      setButtonText('Sent');
+      setButtonText(t.contact.sent);
       setForm(ContactEmptyForm);
-      SnackbarUtilities.success('Thanks! Your message is on its way.');
+      SnackbarUtilities.success(t.contact.success);
     } catch (error) {
-      setButtonText('Try Again');
+      setButtonText(t.contact.retry);
       SnackbarUtilities.error(
         error instanceof Error && error.message !== 'Error sending'
           ? error.message
-          : 'Something went wrong. You can also email me directly at oreanadev@gmail.com'
+          : t.contact.error
       );
     } finally {
-      setTimeout(() => setButtonText('Send'), 2500);
+      setTimeout(() => setButtonText(t.contact.send), 2500);
       setSending(false);
     }
   };
@@ -77,10 +84,10 @@ function Contact() {
           <div className="form-wrapper">
             <div className="contact-heading">
               <h1 className="animate__animated animate__bounceInDown">
-                Get in touch <span>.</span>
+                {t.contact.heading} <span>.</span>
               </h1>
               <p className="text">
-                Or reach me via :{' '}
+                {t.contact.reachMe}{' '}
                 <a href="mailto:oreanadev@gmail.com">
                   oreanadev<span>@</span>gmail<span>.</span>com
                 </a>
@@ -103,7 +110,7 @@ function Contact() {
                     onBlur={() => setFocused(null)}
                     disabled={sending}
                   />
-                  <label htmlFor="contact-name">Name</label>
+                  <label htmlFor="contact-name">{t.contact.name}</label>
                   <FontAwesomeIcon icon={faAddressCard} />
                 </div>
 
@@ -120,7 +127,7 @@ function Contact() {
                     onBlur={() => setFocused(null)}
                     disabled={sending}
                   />
-                  <label htmlFor="contact-company">Company</label>
+                  <label htmlFor="contact-company">{t.contact.company}</label>
                   <FontAwesomeIcon icon={faBuilding} />
                 </div>
 
@@ -138,7 +145,7 @@ function Contact() {
                     onBlur={() => setFocused(null)}
                     disabled={sending}
                   />
-                  <label htmlFor="contact-email">Email</label>
+                  <label htmlFor="contact-email">{t.contact.email}</label>
                   <FontAwesomeIcon icon={faEnvelope} />
                 </div>
 
@@ -154,7 +161,7 @@ function Contact() {
                     onBlur={() => setFocused(null)}
                     disabled={sending}
                   />
-                  <label htmlFor="contact-message">Message</label>
+                  <label htmlFor="contact-message">{t.contact.message}</label>
                   <FontAwesomeIcon icon={faInbox} />
                 </div>
 

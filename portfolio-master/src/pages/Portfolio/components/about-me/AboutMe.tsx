@@ -4,21 +4,31 @@ import 'animate.css'
 import TrackVisibility from 'react-on-screen';
 import { AboutMeSection, AboutMeDivJustifyCenter, AboutMeH1, AboutMeP, AboutMeImg, AboutMeSpanTxtRotate, AboutMeButtonsDiv } from "./styled-components/aboutMe.styled";
 import { AboutMeBG, AboutMeSocialButtons } from "./componets";
+import { useI18n } from "@/i18n";
 
 const TYPING_SPEED = 120
 const DELETING_SPEED = 60
 const PAUSE_AFTER_WORD = 2000
-// Module scope, so the typing effect does not get a new array identity each render.
-const TO_ROTATE = ["Full Stack Developer", "Team Lead", "Systems Engineer"]
 
 export const AboutMe = () => {
+  const { t, lang } = useI18n()
+  const toRotate = t.about.roles
   const [loopNum, setLoopNum] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [text, setText] = useState('')
   const [delta, setDelta] = useState(TYPING_SPEED)
 
+  // Restart the typing effect when the language changes, so a half-typed
+  // English role is not left on screen mid-word.
   useEffect(() => {
-    const fullText = TO_ROTATE[loopNum % TO_ROTATE.length]
+    setText('')
+    setIsDeleting(false)
+    setLoopNum(0)
+    setDelta(TYPING_SPEED)
+  }, [lang])
+
+  useEffect(() => {
+    const fullText = toRotate[loopNum % toRotate.length]
 
     const ticker = setTimeout(() => {
       if (!isDeleting) {
@@ -40,7 +50,7 @@ export const AboutMe = () => {
     }, delta)
 
     return () => clearTimeout(ticker)
-  }, [text, isDeleting, loopNum, delta])
+  }, [text, isDeleting, loopNum, delta, toRotate])
 
   const start = '<'
   const end = '/>'
@@ -53,24 +63,15 @@ export const AboutMe = () => {
           <TrackVisibility>
             {() =>
               <div className={"animate__animated animate__zoomIn"}>
-                <AboutMeH1>{`Hi! I'm Oreana, `}</AboutMeH1>
+                <AboutMeH1>{t.about.greeting}</AboutMeH1>
                 <AboutMeH1>
                   <AboutMeSpanTxtRotate aria-live="polite">{text}</AboutMeSpanTxtRotate>
                 </AboutMeH1>
-                <AboutMeP>
-                  Systems Engineer and web developer working across front end and back end
-                  with React, Node.js and Genexus. 4 years building software for
-                  international projects, coordinating remote teams and turning manual
-                  workflows into automated ones.
-                </AboutMeP>
-                <AboutMeP>
-                  Currently studying a Master&apos;s in Biomedical Engineering.
-                </AboutMeP>
-                <AboutMeP>
-                  Available remotely &middot; Spanish (native), English (C2), French (A2)
-                </AboutMeP>
+                <AboutMeP>{t.about.intro}</AboutMeP>
+                <AboutMeP>{t.about.masters}</AboutMeP>
+                <AboutMeP>{t.about.availability}</AboutMeP>
                 <a href="/OreanaAndradeCV.pdf" download="OreanaAndradeCV.pdf" className='resume'>
-                  {start}<span>resume</span>{end}
+                  {start}<span>{t.about.resume}</span>{end}
                 </a>
 
                 <AboutMeButtonsDiv>
