@@ -9,7 +9,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import CodeIcon from '@mui/icons-material/Code';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import WorkIcon from '@mui/icons-material/Work';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import { TimeLineContainer, TimeLineHeader } from './styled-components';
 
@@ -41,9 +41,9 @@ const MILESTONES: Milestone[] = [
     },
     {
         year: '2023',
-        title: 'Team Lead & Meeting Conductor',
-        detail: 'Lotus Interworks — Simplia, remote',
-        icon: <Diversity3Icon />,
+        title: 'Software Development Intern',
+        detail: 'Kawatek — games for patient rehabilitation',
+        icon: <SportsEsportsIcon />,
         color: 'secondary',
     },
     {
@@ -75,6 +75,14 @@ const MILESTONES: Milestone[] = [
         detail: 'EME Solutions, remote — Genexus, React, Node.js',
         icon: <WorkIcon />,
         color: 'secondary',
+    },
+    {
+        year: 'Now',
+        title: "Master's in Biomedical Engineering",
+        detail: 'In progress',
+        icon: <SchoolIcon />,
+        color: 'primary',
+        outlined: true,
     },
 ];
 

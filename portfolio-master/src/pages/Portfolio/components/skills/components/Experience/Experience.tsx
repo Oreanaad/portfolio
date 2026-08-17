@@ -3,7 +3,8 @@ import { ExperienceContainer, ExperienceItem, ExperienceList } from './styled-co
 interface Role {
   company: string;
   role: string;
-  period: string;
+  /** Omitted when the dates are not being published. */
+  period?: string;
   location: string;
   stack: string[];
   highlights: string[];
@@ -24,16 +25,13 @@ const ROLES: Role[] = [
     ],
   },
   {
-    company: 'Lotus Interworks — Simplia',
-    role: 'Team Lead & Meeting Conductor',
-    period: '2023 — 2024',
-    location: 'Remote',
-    stack: ['JavaScript', 'Google Apps Script', 'Agile'],
+    company: 'Kawatek',
+    role: 'Software Development Intern',
+    location: 'Internship',
+    stack: ['Game development', 'Rehabilitation tech'],
     highlights: [
-      'Led and facilitated international meetings with over 50 participants, ensuring structured agendas, clear objectives and actionable outcomes.',
-      'Automated workflows by developing and debugging JavaScript for Google Sheets and Forms, cutting manual reporting time by 30%.',
-      'Coordinated schedules, assigned responsibilities and tracked progress across a distributed team, improving communication and alignment.',
-      'Acted as liaison between management and technical teams, keeping information flow and project tracking smooth.',
+      'Developed games designed for patient rehabilitation, turning clinical exercises into guided, interactive sessions.',
+      'Worked on the interaction and feedback loop so patients could follow their own progress through each exercise.',
     ],
   },
 ];
@@ -51,7 +49,7 @@ export default function Experience() {
               {item.role} <span className="company">· {item.company}</span>
             </h3>
             <p className="meta">
-              {item.period} · {item.location}
+              {[item.period, item.location].filter(Boolean).join(' · ')}
             </p>
             <div className="stack">
               {item.stack.map((tech) => (

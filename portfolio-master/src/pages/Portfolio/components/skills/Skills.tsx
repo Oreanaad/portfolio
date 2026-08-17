@@ -11,15 +11,16 @@ export default function Skills() {
           <h1> my<span>Ex</span>perience </h1>
           <br />
           <p>
-            Systems Engineer and web developer with over 2 years building front-end and
+            Systems Engineer and web developer with 4 years building front-end and
             back-end software with React, Node.js and Genexus. I have worked on
             international projects, coordinated remote teams and led multinational
             meetings, and I like turning slow manual processes into automated ones.
           </p>
           <p>
-            Along the way I have picked up Agile and Scrum practices, design work with
-            the Adobe suite, and architectural drafting with AutoCAD — a mix that helps
-            me move comfortably between the technical and the visual side of a product.
+            I am currently studying a Master&apos;s in Biomedical Engineering, which pairs
+            with the rehabilitation games I built during my internship at Kawatek. Along
+            the way I have also picked up Agile and Scrum practices, design work with the
+            Adobe suite, and architectural drafting with AutoCAD.
           </p>
         </div>
       </SkillsHeader>

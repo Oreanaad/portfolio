@@ -59,13 +59,15 @@ export const AboutMe = () => {
                 </AboutMeH1>
                 <AboutMeP>
                   Systems Engineer and web developer working across front end and back end
-                  with React, Node.js and Genexus. Over 2 years building software for
+                  with React, Node.js and Genexus. 4 years building software for
                   international projects, coordinating remote teams and turning manual
                   workflows into automated ones.
                 </AboutMeP>
                 <AboutMeP>
-                  Based in Los Teques, Venezuela &middot; available remotely &middot; Spanish (native),
-                  English (C2), French (A2)
+                  Currently studying a Master&apos;s in Biomedical Engineering.
+                </AboutMeP>
+                <AboutMeP>
+                  Available remotely &middot; Spanish (native), English (C2), French (A2)
                 </AboutMeP>
                 <a href="/OreanaAndradeCV.pdf" download="OreanaAndradeCV.pdf" className='resume'>
                   {start}<span>resume</span>{end}
