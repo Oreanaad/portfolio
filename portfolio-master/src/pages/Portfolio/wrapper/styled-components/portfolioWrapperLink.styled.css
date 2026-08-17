@@ -1,20 +1,13 @@
-
 .selectedLink {
-   color: #f30889;
-   }
+  color: #f30889;
+}
 
-   .unselecetedLinkWebDark {
-   color: white
-   }
+/* Follows the active theme instead of hard-coding black/white per theme. */
+.unselecetedLinkWeb {
+  color: var(--color);
+}
 
-   .unselecetedLinkMob {
-   color: white
-   }
-
-   .unselecetedLinkWebLight {
-   color: black
-   }
-
-   .unselecetedLinkMob {
-   color: white
-   }
+/* The mobile menu sits on a dark overlay, so it is always light-on-dark. */
+.unselecetedLinkMob {
+  color: #ffffff;
+}

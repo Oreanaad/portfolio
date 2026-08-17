@@ -16,7 +16,9 @@ export const AboutMeCharacterContainer = styled.div `
     height: 100%;
     overflow: hidden;
     top:0;
-    opacity: var(--opacity);
+    /* Decorative backdrop — kept behind the content and out of the way of clicks. */
+    z-index: -1;
+    pointer-events: none;
 `;
 
 export const AboutMeCharacter = styled.div `
@@ -132,13 +134,22 @@ export const AboutMeImg = styled.img `
 export const AboutMeSpanTxtRotate = styled.span ` 
     border-right: 0.08em solid #666;
  `;
-export const AboutMeDivJustifyCenter = styled.div ` 
+export const AboutMeDivJustifyCenter = styled.div `
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 100px 0;
+    gap: 1rem;
+
+    /* Without a flex-basis the intro copy grows wide enough to force a wrap,
+       which pushed the illustration onto its own row on desktop. */
+    & > div {
+        flex: 1 1 420px;
+        max-width: 620px;
+        min-width: 0;
+    }
 
     .resume {
         color: var(--main-color);

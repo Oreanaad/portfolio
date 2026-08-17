@@ -1,6 +1,35 @@
 [build]
   command = "npm run build"
-  publish = "portfolio-master/dist" # Ajusta a tu carpeta de publicación
-  
+  publish = "portfolio-master/dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
 [functions]
-  directory = "netlify/functions" # Directorio donde se encuentran tus funciones
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Gives the front end a clean, provider-agnostic endpoint to POST to.
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/sendEmail"
+  status = 200
+  force = true
+
+# SPA fallback: every other path is handled by the React router.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

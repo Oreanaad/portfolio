@@ -1,9 +1,6 @@
-
-import { persistLocalStorage } from './localStorage.utility';
-
-export const  ColorSchemeActive = (): string => { 
+export const ColorSchemeActive = (): string => {
     if (localStorage.getItem('color-scheme') === 'dark' || localStorage.getItem('color-scheme') === 'light'  ) {
-        let colorScheme = localStorage.getItem('color-scheme')?.toString() as string
+        const colorScheme = localStorage.getItem('color-scheme')?.toString() as string
         document.querySelector('html')?.setAttribute('data-theme', colorScheme)
         return colorScheme 
     } else {

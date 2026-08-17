@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 
 export const SkillsSection = styled.section`
-    z-index: -2;
     margin-top: 0px;
     display: flex;
     flex-direction: row;
@@ -14,7 +13,9 @@ export const SkillsSection = styled.section`
     
 `
 export const SkillsHeader = styled.div`
-     margin-top: 50px;
+     /* Padding, not margin: a top margin here collapses out to the page
+        container, so the heading could slide under the fixed navbar. */
+     padding-top: 90px;
      p {
         width: 80%;
         margin: auto;
@@ -31,11 +32,8 @@ export const SkillsHeader = styled.div`
         color: var(--main-color);
     }
 
+    /* The navbar wraps taller on small screens, so clear a little more. */
     @media (max-width: 900px) {
-            
-        h1 { 
-         margin-top: 100px;
-        }
-         }
-
+        padding-top: 110px;
+    }
 `

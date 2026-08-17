@@ -1,18 +1,13 @@
 export const PublicRoutes = {
-    LOGIN: '/Login',
-    HOME: 'Home',
     ABOUTME: '/aboutme',
-    SKILLS: '/skills',
+    SKILLS: '/experience',
     PROJECTS: '/projects',
     CONTACT: '/contact',
-    
 }
 
-export const PrivateRoutes = {
-    PRIVATE: '/Private',
-    DASHBOARD: 'Dashboard',
-    HOME: '/Home',
-    SIGNOUT: '/Signout',
-    ADMIN: '/Admin',
-
-}
+export const NavLinks = [
+    { to: PublicRoutes.ABOUTME, label: 'About me' },
+    { to: PublicRoutes.SKILLS, label: 'Experience' },
+    { to: PublicRoutes.PROJECTS, label: 'Projects' },
+    { to: PublicRoutes.CONTACT, label: 'Contact' },
+]

@@ -1,9 +1,7 @@
 import { TailSpin } from 'react-loader-spinner';
 import { SpinnerContainer } from './styled-components';
-import SkillBars from './../../pages/Portfolio/components/skills/components/SkillBars/SkillBars';
-export interface SpinnerProps {}
 
-const Spinner : React.FC<SpinnerProps> = () => {
+const Spinner: React.FC = () => {
 	return (
 		<SpinnerContainer>
 			<TailSpin

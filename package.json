@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-site",
+  "private": true,
+  "version": "1.1.0",
+  "description": "Oreana Andrade — portfolio site. Vite/React front end plus the Netlify Function that powers the contact form.",
+  "scripts": {
+    "build": "npm --prefix portfolio-master install && npm --prefix portfolio-master run build",
+    "dev": "npm --prefix portfolio-master run dev",
+    "lint": "npm --prefix portfolio-master run lint"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}

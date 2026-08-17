@@ -1,59 +1,49 @@
 import { useState, useEffect } from "react"
-import styled from "styled-components";
-import { ArrowRightCircle } from "react-bootstrap-icons";
-import headerImg from "./assets/img/escritorio.png"
+import headerImg from "./assets/img/escritorio.webp"
 import 'animate.css'
 import TrackVisibility from 'react-on-screen';
-import { AboutMeSection, AboutMeDivJustifyCenter, AboutMeSpan, AboutMeH1, AboutMeP, AboutMeButton, AboutMeImg, AboutMeSpanTxtRotate, AboutMeCharacter, AboutMeCharacterContainer, AboutMeButtonsDiv } from "./styled-components/aboutMe.styled";
-import { ColorSchemeActive } from "@/utilities";
+import { AboutMeSection, AboutMeDivJustifyCenter, AboutMeH1, AboutMeP, AboutMeImg, AboutMeSpanTxtRotate, AboutMeButtonsDiv } from "./styled-components/aboutMe.styled";
 import { AboutMeBG, AboutMeSocialButtons } from "./componets";
 
+const TYPING_SPEED = 120
+const DELETING_SPEED = 60
+const PAUSE_AFTER_WORD = 2000
+// Module scope, so the typing effect does not get a new array identity each render.
+const TO_ROTATE = ["Full Stack Developer", "Team Lead", "Systems Engineer"]
+
 export const AboutMe = () => {
-  const [loopNum, setLoopNum] = useState(0);
+  const [loopNum, setLoopNum] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-  const toRotate = ["Sys Eng", "CSM", "Web Dev", ]
   const [text, setText] = useState('')
-  const [delta, setDelta] = useState(300 - Math.random() * 100)
-  const [index, setIndex] = useState(1);
-  const period = 2000;
-  const [isVisible, setIsVisible] = useState(true)
-  const [colorScheme, setColorScheme] = useState<string>(ColorSchemeActive())
+  const [delta, setDelta] = useState(TYPING_SPEED)
 
   useEffect(() => {
-    let ticker = setInterval(() => {
-      tick();
+    const fullText = TO_ROTATE[loopNum % TO_ROTATE.length]
+
+    const ticker = setTimeout(() => {
+      if (!isDeleting) {
+        const next = fullText.substring(0, text.length + 1)
+        setText(next)
+        // Hold the finished word on screen before erasing it.
+        setDelta(next === fullText ? PAUSE_AFTER_WORD : TYPING_SPEED)
+        if (next === fullText) setIsDeleting(true)
+      } else {
+        const next = fullText.substring(0, text.length - 1)
+        setText(next)
+        setDelta(DELETING_SPEED)
+        if (next === '') {
+          setIsDeleting(false)
+          setLoopNum((prev) => prev + 1)
+          setDelta(TYPING_SPEED)
+        }
+      }
     }, delta)
-    return () => { clearInterval(ticker) }
-  }, [text])
 
-  const tick = () => {
-    let i = loopNum % toRotate.length
-    let fullText = toRotate[i]
-    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1)
+    return () => clearTimeout(ticker)
+  }, [text, isDeleting, loopNum, delta])
 
-    setText(updatedText)
-    if (isDeleting) {
-      setDelta(prevDelta => prevDelta / 2)
-    }
-    if (!isDeleting && updatedText === fullText) {
-      setIsDeleting(true)
-      setIndex(prevIndex => prevIndex - 1);
-      setDelta(period)
-    } else if (isDeleting && updatedText === '') {
-      setIsDeleting(false)
-      setLoopNum(loopNum + 1)
-      setIndex(1)
-      setDelta(350)
-
-    } else {
-      setIndex(prevIndex => prevIndex + 1);
-    }
-  }
-
-  const start = '<';
-  const end = '/>';
-
-
+  const start = '<'
+  const end = '/>'
 
   return (
     <AboutMeSection id="home">
@@ -61,34 +51,43 @@ export const AboutMe = () => {
       <AboutMeDivJustifyCenter>
         <div>
           <TrackVisibility>
-            {({ isVisible }) =>
+            {() =>
               <div className={"animate__animated animate__zoomIn"}>
-                <AboutMeH1>{`Hi! I'm Oreana, `} </AboutMeH1>
-                <AboutMeH1> <span data-period="1000" data-rotate='[ "Web Developer", "Web Designer", "Sys Engineer" ]'><AboutMeSpanTxtRotate>{text}</AboutMeSpanTxtRotate></span></AboutMeH1>
-                <AboutMeP>System engineer, Full Stack web developer,  Genexus developer, 4 years using code. </AboutMeP>
-                <a  href="/OreanaAndradeCV.pdf" download="OreanaAndradeCV.pdf" className='resume'>{start}<span>resume</span>{end}</a>
-                
-                <AboutMeButtonsDiv >
+                <AboutMeH1>{`Hi! I'm Oreana, `}</AboutMeH1>
+                <AboutMeH1>
+                  <AboutMeSpanTxtRotate aria-live="polite">{text}</AboutMeSpanTxtRotate>
+                </AboutMeH1>
+                <AboutMeP>
+                  Systems Engineer and web developer working across front end and back end
+                  with React, Node.js and Genexus. Over 2 years building software for
+                  international projects, coordinating remote teams and turning manual
+                  workflows into automated ones.
+                </AboutMeP>
+                <AboutMeP>
+                  Based in Los Teques, Venezuela &middot; available remotely &middot; Spanish (native),
+                  English (C2), French (A2)
+                </AboutMeP>
+                <a href="/OreanaAndradeCV.pdf" download="OreanaAndradeCV.pdf" className='resume'>
+                  {start}<span>resume</span>{end}
+                </a>
+
+                <AboutMeButtonsDiv>
                   <AboutMeSocialButtons />
                 </AboutMeButtonsDiv>
               </div>}
           </TrackVisibility>
         </div>
-        <div >
+        <div>
           <TrackVisibility>
             {({ isVisible }) =>
               <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                <AboutMeImg src={headerImg} alt="Header Img" />
+                <AboutMeImg src={headerImg} alt="" aria-hidden="true" />
               </div>}
           </TrackVisibility>
         </div>
       </AboutMeDivJustifyCenter>
     </AboutMeSection>
-
   )
-
 }
 
-
 export default AboutMe
-

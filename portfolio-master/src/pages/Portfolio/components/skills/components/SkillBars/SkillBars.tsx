@@ -1,51 +1,49 @@
 import { SkillBarsGeneralDiv } from "./styled-components"
+
+interface Skill {
+  name: string
+  /** Self-assessed proficiency, rendered as the bar width. */
+  level: number
+}
+
+const SKILLS: Skill[] = [
+  { name: 'React.js', level: 75 },
+  { name: 'JavaScript', level: 60 },
+  { name: 'TypeScript', level: 40 },
+  { name: 'Node.js', level: 50 },
+  { name: 'Next.js', level: 50 },
+  { name: 'Genexus', level: 80 },
+  { name: 'HTML', level: 100 },
+  { name: 'CSS / Bootstrap / Tailwind', level: 80 },
+  { name: 'Python', level: 55 },
+  { name: 'SQL / PostgreSQL / SQL Server', level: 80 },
+  { name: 'Git & GitHub', level: 90 },
+  { name: 'Agile methodologies', level: 100 },
+]
+
 export default function SkillBars() {
   return (
     <SkillBarsGeneralDiv className="skill">
-        
-        <h4><span>.</span>Skills</h4>
-        <li>
-            <h3>Agile Methodologies</h3>
-            <span className="bar"><span className="agile"></span></span>
-        </li>
-        <li>
-            <h3>JavaScript</h3>
-            <span className="bar"><span className="scrum"></span></span>
-        </li>
-        <li>
-            <h3>HTML</h3>
-            <span className="bar"><span className="html"></span></span>
-        </li>
-        <li>
-            <h3>CSS/BOOSTRAP/TAILWIND</h3>
-            <span className="bar"><span className="css"></span></span>
-        </li>
-        <li>
-            <h3>Node.js</h3>
-            <span className="bar"><span className="js"></span></span>
-        </li>
-        <li>
-            <h3>React.js</h3>
-            <span className="bar"><span className="react"></span></span>
-        </li>
-        <li>
-            <h3>TypeScript</h3>
-            <span className="bar"><span className="ts"></span></span>
-        </li>
-        <li>
-            <h3>GitHub</h3>
-            <span className="bar"><span className="poo"></span></span>
-        </li>
-        <li>
-            <h3>SQL</h3>
-            <span className="bar"><span className="sql"></span></span>
-        </li>
-        <li>
-            <h3>Genexus</h3>
-        
-            <span className="bar"><span className="genexus"></span></span>
-        </li>
+      <h4><span>.</span>Skills</h4>
+      <ul>
+        {SKILLS.map(({ name, level }) => (
+          <li key={name}>
+            <h3>{name}</h3>
+            <span
+              className="bar"
+              role="meter"
+              aria-label={name}
+              aria-valuenow={level}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
+              {/* The width is handed to CSS as a custom property so every bar
+                  shares one animation instead of a hand-written keyframe each. */}
+              <span className="fill" style={{ ['--level' as string]: `${level}%` }} />
+            </span>
+          </li>
+        ))}
+      </ul>
     </SkillBarsGeneralDiv>
-    
   )
 }

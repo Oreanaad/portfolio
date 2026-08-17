@@ -1,77 +1,84 @@
-# Clean Architecture
+# Portfolio — Oreana Andrade
 
+Personal portfolio: about me, professional experience, live projects and a contact form.
 
-## Features needed in terminal
+Built with **React 18 + TypeScript + Vite**, styled with **styled-components** and **MUI**,
+deployed on **Netlify** with a serverless function handling the contact form.
 
-```
-npm i -g pnpm
-
-pnpm i
-
-pnpm i react-redux
-
-pnpm i @reduxjs/toolkit
-
-pnpm i @types/node
-
-pnpm i @types/react-router-dom
-
-pnpm i notistack
-
-pnpm i react-on-screen
-
-pnpm i csstype
-
-pnpm i animate.css
-
-pnpm i react-bootstrap-icons
-
-pnpm install  @types/styled-components
-
-pnpm install @mui/material @mui/styled-engine-sc styled-components
+## Repository layout
 
 ```
+.
+├── netlify.toml            Build, redirects, headers and function config
+├── package.json            Build orchestration + Netlify Function dependencies
+├── netlify/functions/
+│   └── sendEmail.js        Contact form handler (nodemailer over SMTP)
+└── portfolio-master/       The Vite front end
+    ├── public/             Static assets, CV, robots.txt, sitemap.xml, og-image
+    └── src/
+        ├── components/     Shared UI (burger button, spinner)
+        ├── models/         Types and route definitions
+        ├── pages/Portfolio/
+        │   ├── wrapper/    Layout: navbar, theme toggle, <Outlet />
+        │   └── components/ about-me · skills · projects · contact
+        └── utilities/      Theme persistence, snackbar helpers
+```
 
-# Mi Portafolio
+## Running locally
 
-## Descripción
+```bash
+# from the repository root
+npm run dev
+```
 
-Este repositorio contiene mi portafolio personal que muestra mis habilidades y proyectos como desarrollador.
+That proxies to the front end in `portfolio-master/`. To work in that folder directly:
 
-## Tecnologías Utilizadas
+```bash
+cd portfolio-master
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # type-check + production build into dist/
+npm run lint     # ESLint
+npm run format   # Prettier
+```
 
-- React.js
-- CSS
-- HTML
+### Contact form in development
 
-## Instalación
+`npm run dev` serves the front end only, so `POST /api/contact` has nothing behind it.
+To exercise the real function, run the whole site through the Netlify CLI from the root:
 
-Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
+```bash
+npm i -g netlify-cli
+netlify dev
+```
 
-1. Clona el repositorio:
+Copy `.env.example` to `.env` first and fill in the SMTP values.
 
-git clone https://github.com/mmaaxxii/portfolio.git
+## Environment variables
 
-2. Navega hasta el directorio del proyecto:
+Set these in **Netlify → Site settings → Environment variables** (and in a local
+`.env` for `netlify dev`). See `.env.example`.
 
+| Variable | Purpose |
+| --- | --- |
+| `SMTP_HOST` | SMTP server, defaults to `smtp.gmail.com` |
+| `SMTP_PORT` | SMTP port, defaults to `465` |
+| `SMTP_USER` | Mailbox that sends the message |
+| `SMTP_PASS` | App password — **not** the account password |
+| `MAIL_TO` | Where submissions are delivered; defaults to `SMTP_USER` |
 
-cd portfolio
+`.env` is gitignored. Never commit real credentials.
 
-3. Instala las dependencias:
+## Deployment
 
-4. Ejecuta el proyecto:
+Netlify builds from the repository root using `netlify.toml`:
 
-## Características
+- **Build command** `npm run build` — installs and builds `portfolio-master/`
+- **Publish directory** `portfolio-master/dist`
+- **Functions** `netlify/functions`
+- `/api/contact` is rewritten to the `sendEmail` function
+- Every other path falls back to `index.html` for the client-side router
 
-- **Página de inicio**: Una introducción a mí mismo y una visión general de mis habilidades y experiencias.
-- **Página de proyectos**: Una galería de mis proyectos con enlaces a los repositorios de GitHub.
-- **Página de contacto**: Una página donde los visitantes pueden ver mi información de contacto y enviarme un mensaje.
+## License
 
-## Contribución
-
-Este es un proyecto personal y no estoy buscando contribuciones. Sin embargo, si tienes alguna sugerencia o comentario, no dudes en abrir un problema.
-
-## Licencia
-
-Este proyecto está licenciado bajo la licencia MIT.
-
+MIT

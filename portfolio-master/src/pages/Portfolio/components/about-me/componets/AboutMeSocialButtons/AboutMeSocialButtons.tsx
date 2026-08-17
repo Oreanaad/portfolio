@@ -1,20 +1,30 @@
 import React from 'react';
+import { Linkedin, Facebook, Instagram, Github } from 'react-bootstrap-icons';
 import { AboutMeSocialButtonsDiv } from './styled-components';
-export interface AboutMeSocialButtonsProps {}
 
-const AboutMeSocialButtons : React.FC<AboutMeSocialButtonsProps> = () => {
-	
-	return (
-	
+const SOCIALS = [
+	{
+		href: 'https://www.linkedin.com/in/oreana-andrade-6176382aa',
+		label: 'LinkedIn profile',
+		Icon: Linkedin,
+	},
+	{ href: 'https://www.facebook.com/Oreanaad', label: 'Facebook profile', Icon: Facebook },
+	{ href: 'https://www.instagram.com/oreanaad20/', label: 'Instagram profile', Icon: Instagram },
+	{ href: 'https://github.com/Oreanaad', label: 'GitHub profile', Icon: Github },
+];
+
+const AboutMeSocialButtons: React.FC = () => (
 	<AboutMeSocialButtonsDiv>
 		<ul>
-			<li><a href="https://www.linkedin.com/in/oreana-andrade/" target="_blank" rel="noreferrer"><i className="fa fa-linkedin"></i></a></li>
-			<li><a href="https://www.facebook.com/Oreanaad" target="_blank" rel="noreferrer"><i className="fa fa-facebook"></i></a></li>
-			<li><a href="https://www.instagram.com/oreanaad20/" target="_blank" rel="noreferrer"><i className="fa fa-instagram"></i></a></li>
-			<li><a href="https://github.com/Oreanaad" target="_blank" rel="noreferrer"><i className="fa fa-github"></i></a></li>
+			{SOCIALS.map(({ href, label, Icon }) => (
+				<li key={href}>
+					<a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+						<Icon size={30} aria-hidden="true" />
+					</a>
+				</li>
+			))}
 		</ul>
 	</AboutMeSocialButtonsDiv>
-	);
-};
+);
 
 export default AboutMeSocialButtons;

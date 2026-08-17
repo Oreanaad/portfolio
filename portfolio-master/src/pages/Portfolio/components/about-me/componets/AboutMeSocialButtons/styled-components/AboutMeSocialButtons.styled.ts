@@ -13,25 +13,21 @@ export const AboutMeSocialButtonsDiv = styled.div`
             list-style: none;
             margin: 0 10px;
         
-            & .fa {
-                font-size: 30px;
-                line-height: 60px;
+            & svg {
                 transition: .6s;
-                color: var(--color);
+                color: inherit;
             }
 
-            & .fa:hover {
-                color: var(--bg);
-            }
-
-
-            & a { 
+            & a {
                 position: relative;
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
                 background: var(--bg);
+                color: var(--color);
                 text-align: center;
                 transition: .6s;
                 box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);

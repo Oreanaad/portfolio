@@ -2,11 +2,72 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- maximum-scale / user-scalable=0 were removed: they blocked pinch zoom,
+         which fails WCAG 1.4.4 and makes the site painful on small screens. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Oreana Andrade — Full Stack Developer &amp; Systems Engineer</title>
+    <meta
+      name="description"
+      content="Systems Engineer and full stack developer building web apps with React, Node.js and Genexus. Over 2 years on international projects, working remotely from Venezuela."
+    />
+    <meta name="author" content="Oreana Andrade" />
+    <meta name="theme-color" content="#f30889" />
+
     <link rel="icon" type="image/svg+xml" href="/fav4.svg" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
-    <meta name="description" content="React Front End Developer.">
-    <title> <ME /> Portfolio </title>
+    <link rel="canonical" href="https://oreana-andrade.netlify.app/" />
+
+    <!-- Open Graph: controls the preview card on LinkedIn, Facebook, WhatsApp, Slack. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Oreana Andrade" />
+    <meta property="og:title" content="Oreana Andrade — Full Stack Developer &amp; Systems Engineer" />
+    <meta
+      property="og:description"
+      content="Systems Engineer and full stack developer building web apps with React, Node.js and Genexus. Over 2 years on international projects, working remotely from Venezuela."
+    />
+    <meta property="og:url" content="https://oreana-andrade.netlify.app/" />
+    <meta property="og:image" content="https://oreana-andrade.netlify.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Oreana Andrade — Full Stack Developer and Systems Engineer" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Oreana Andrade — Full Stack Developer &amp; Systems Engineer" />
+    <meta
+      name="twitter:description"
+      content="Systems Engineer and full stack developer building web apps with React, Node.js and Genexus."
+    />
+    <meta name="twitter:image" content="https://oreana-andrade.netlify.app/og-image.png" />
+
+    <!-- Structured data: lets Google show richer results for her name. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Oreana Andrade",
+        "jobTitle": "Full Stack Developer",
+        "email": "mailto:oreanadev@gmail.com",
+        "url": "https://oreana-andrade.netlify.app/",
+        "image": "https://oreana-andrade.netlify.app/og-image.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Los Teques",
+          "addressCountry": "VE"
+        },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Universidad Bicentenaria de Aragua" },
+          { "@type": "CollegeOrUniversity", "name": "Universidad Simón Bolívar" },
+          { "@type": "CollegeOrUniversity", "name": "Universidad Central de Venezuela" }
+        ],
+        "knowsLanguage": ["Spanish", "English", "French"],
+        "knowsAbout": ["React", "Node.js", "Genexus", "TypeScript", "Python", "SQL"],
+        "sameAs": [
+          "https://github.com/Oreanaad",
+          "https://www.linkedin.com/in/oreana-andrade-6176382aa"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

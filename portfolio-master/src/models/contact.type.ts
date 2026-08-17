@@ -4,8 +4,8 @@ export interface ContactType {
     Name: string
     Company?: string
     Email: string
-    Message: string 
-};
+    Message: string
+}
 
 export const ContactEmptyForm = {
     Name: '',

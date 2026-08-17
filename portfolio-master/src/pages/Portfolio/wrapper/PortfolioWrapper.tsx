@@ -1,93 +1,96 @@
- import BurguerButton from "@/components/BurguerButton/BurguerButton"
-import { PublicRoutes } from "@/models"
+import BurguerButton from "@/components/BurguerButton/BurguerButton"
+import { NavLinks } from "@/models"
 import { ColorSchemeActive } from "@/utilities"
-import {  useContext,  useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { WrapperContext } from "./context"
-import { MoonFill } from "react-bootstrap-icons"
-import { SunFill } from "react-bootstrap-icons"
-import { BgDiv, PortfolioWrapperNav} from "./styled-components/portfolioWrapper.styled"
-import './styled-components/portfolioWrapperLink.styled.css' 
-import { persistLocalStorage } from '@/utilities/localStorage.utility';
+import { useCallback, useEffect, useState } from "react"
+import { NavLink, Outlet, useLocation } from "react-router-dom"
+import { MoonFill, SunFill } from "react-bootstrap-icons"
+import { BgDiv, PortfolioWrapperNav } from "./styled-components/portfolioWrapper.styled"
+import './styled-components/portfolioWrapperLink.styled.css'
 
-interface Props {
-    children: JSX.Element | JSX.Element[]
-    active: string
-}
-
- function PortfolioWrapper({active, children} : Props) {
-  const start  = "<"
+function PortfolioWrapper() {
+  const start = "<"
   const mid = "ME"
   const end = "/>"
-  const navigate = useNavigate()
-  const [activeRoute, setActiveRoute] = useState<string>(PublicRoutes.ABOUTME)
-  const {updateRoute} = useContext(WrapperContext)  
+  const location = useLocation()
   const [colorScheme, setColorScheme] = useState<string>(ColorSchemeActive())
-  const [clicked, setClicked] = useState(false)
-  const allElements = document.querySelectorAll("*");
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  const handleClick = () => {
-    setClicked(!clicked)
-    const body = document.querySelector('body')?.setAttribute('style', `overflow-y: ${clicked ? 'auto' : 'hidden'}`)
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-  }
+  // Close the mobile menu whenever the route changes, so a tap on a link
+  // never leaves the overlay covering the page it just navigated to.
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
 
-  const handleClickLink = (route: string) => {
-    if (clicked) {  handleClick() } 
-    updateRoute(route)
-    setActiveRoute(route)
-    
-  }
+  // The menu is a full-screen overlay on mobile, so lock body scroll while it is open.
+  useEffect(() => {
+    document.body.style.overflowY = menuOpen ? 'hidden' : 'auto'
+    return () => { document.body.style.overflowY = 'auto' }
+  }, [menuOpen])
 
-  const handleClickTheme = () => {
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
 
-    allElements.forEach((element) => {
-      element.classList.add("transition");
-      setTimeout(() => {
-        element.classList.remove("transition");
-      }
-      , 1000);
-      
-    });
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [location.pathname])
 
-    if (colorScheme === 'dark') {
-      
+  const handleClickTheme = useCallback(() => {
+    const next = colorScheme === 'dark' ? 'light' : 'dark'
+    const root = document.documentElement
 
-      document.querySelector('html')?.setAttribute('data-theme', 'light' )
-      setColorScheme('light')
-      localStorage.setItem('color-scheme', 'light')
-      
-    } else {
-      
-      document.querySelector('html')?.setAttribute('data-theme', 'dark')
-      setColorScheme('dark')
-      localStorage.setItem('color-scheme', 'dark')
-      
-    }
-  }
+    // One class on <html> drives the cross-fade for the whole tree, instead of
+    // walking every node in the document on each toggle.
+    root.classList.add('theme-transition')
+    window.setTimeout(() => root.classList.remove('theme-transition'), 1000)
 
-  const handleClickResume = () => {
-
-  }
+    root.setAttribute('data-theme', next)
+    localStorage.setItem('color-scheme', next)
+    setColorScheme(next)
+  }, [colorScheme])
 
   return (
-    <> 
-        <PortfolioWrapperNav>
-            <h2>{start}<span>{mid}</span>{end}</h2> 
-            <div className={`links ${clicked ? 'active' : ''}`}>
-              <a onClick={() => (handleClickLink(PublicRoutes.ABOUTME))} className={activeRoute === PublicRoutes.ABOUTME ? 'selectedLink' : (!clicked ? (colorScheme==='dark' ?'unselecetedLinkWebDark' :'unselecetedLinkWebLight') : 'unselecetedLinkMob')}>AboutMe</a>
-              <a onClick={() => (handleClickLink(PublicRoutes.SKILLS))} className={activeRoute === PublicRoutes.SKILLS ? 'selectedLink' : (!clicked ? (colorScheme==='dark' ?'unselecetedLinkWebDark' :'unselecetedLinkWebLight') : 'unselecetedLinkMob')}>Experience</a>
-              <a onClick={() => (handleClickLink(PublicRoutes.PROJECTS))}  className={activeRoute === PublicRoutes.PROJECTS ? 'selectedLink' : (!clicked ? (colorScheme==='dark' ?'unselecetedLinkWebDark' :'unselecetedLinkWebLight') : 'unselecetedLinkMob')}>Projects</a>
-              <a onClick={() => (handleClickLink(PublicRoutes.CONTACT))}  className={activeRoute === PublicRoutes.CONTACT ? 'selectedLink' : (!clicked ? (colorScheme==='dark' ?'unselecetedLinkWebDark' :'unselecetedLinkWebLight') : 'unselecetedLinkMob')}>Contact</a>
-              {/* <a onClick={() => navigate(PublicRoutes.LOGIN)}  className={activeRoute === PublicRoutes.LOGIN ? 'selectedLink' : (!clicked ? (colorScheme==='dark' ?'unselecetedLinkWebDark' :'unselecetedLinkWebLight') : 'unselecetedLinkMob')}>Login</a> */}
-            </div>
-            <button id="switch" className="switch" onClick={handleClickTheme}>{colorScheme === 'dark' ?  <SunFill size={25}/>:<MoonFill size={25}/> }</button>
-            <div className="burguer">
-              <BurguerButton clicked={clicked} handleClick={handleClick}/>
-            </div>
-        </PortfolioWrapperNav>
-        <BgDiv className={`initial ${clicked ? 'active' : ''}`}></BgDiv>
-        <div className="main-container">{children}</div>
+    <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <PortfolioWrapperNav>
+        <h2>{start}<span>{mid}</span>{end}</h2>
+        <div id="main-nav-links" className={`links ${menuOpen ? 'active' : ''}`}>
+          {NavLinks.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                isActive
+                  ? 'selectedLink'
+                  : (menuOpen ? 'unselecetedLinkMob' : 'unselecetedLinkWeb')
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+        <button
+          id="switch"
+          className="switch"
+          onClick={handleClickTheme}
+          aria-label={colorScheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+        >
+          {colorScheme === 'dark' ? <SunFill size={25} /> : <MoonFill size={25} />}
+        </button>
+        <div className="burguer">
+          <BurguerButton
+            clicked={menuOpen}
+            handleClick={() => setMenuOpen((open) => !open)}
+          />
+        </div>
+      </PortfolioWrapperNav>
+      <BgDiv className={`initial ${menuOpen ? 'active' : ''}`} />
+      <main id="main-content" className="main-container">
+        <Outlet />
+      </main>
     </>
   )
 }

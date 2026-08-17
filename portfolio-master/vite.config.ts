@@ -5,13 +5,28 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 🚨 CAMBIA ESTA LÍNEA 🚨
-  base: './', // Esto asegura que las rutas se construyan de forma relativa.
-  // o base: process.env.VITE_BASE_PATH || './', si necesitas la variable de entorno.
+
+  // Must be absolute, not './'. With a relative base the asset URLs are resolved
+  // against the current path, so a deep link like /projects would request
+  // /assets/... correctly but any nested route would 404 on its own scripts.
+  base: '/',
 
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  }
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        // Split the heaviest vendors so a change to app code does not bust the
+        // cache for all of MUI on repeat visits.
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          mui: ['@mui/material', '@mui/icons-material', '@mui/lab'],
+        },
+      },
+    },
+  },
 })

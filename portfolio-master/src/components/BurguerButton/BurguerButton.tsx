@@ -1,14 +1,25 @@
 import styled from 'styled-components';
 
+interface Props {
+  clicked: boolean;
+  handleClick: () => void;
+}
 
-function BurguerButton(props : any) {
+function BurguerButton({ clicked, handleClick }: Props) {
   return (
     <Burguer>
-        <div onClick={props.handleClick} className={`icon nav-icon-5 ${props.clicked ? 'open' : ''}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+      <button
+        type="button"
+        onClick={handleClick}
+        className={`icon nav-icon-5 ${clicked ? 'open' : ''}`}
+        aria-label={clicked ? 'Close menu' : 'Open menu'}
+        aria-expanded={clicked}
+        aria-controls="main-nav-links"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </Burguer>
   )
 }
@@ -22,6 +33,9 @@ const Burguer = styled.div`
     position: relative;
     cursor: pointer;
     display: inline-block;
+    padding: 0;
+    border: none;
+    background: transparent;
   }
   .nav-icon-5 span{
     background-color: var(--color);

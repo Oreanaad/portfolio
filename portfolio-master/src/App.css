@@ -2,16 +2,19 @@
   font-family: Centra;
   src: url('./assets/font/CentraNo2-Bold.ttf');
   font-weight: 700;
+  font-display: swap;
 }
 @font-face{
   font-family: Centra;
   src: url('./assets/font/CentraNo2-Medium.ttf');
   font-weight: 500;
+  font-display: swap;
 }
 @font-face{
   font-family: Centra;
   src: url('./assets/font/CentraNo2-Book.ttf');
   font-weight: 400;
+  font-display: swap;
 }
 
 
@@ -23,7 +26,7 @@
 }
 
 
-/* Default CSS  */ 
+/* Default CSS  */
 *{
   margin: 0;
   padding: 0;
@@ -40,8 +43,8 @@ body{
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  
-  font-family: 'Centra', sans-serif !important;  
+
+  font-family: 'Centra', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -64,11 +67,31 @@ img {
 
 button {
   border: 0;
-  
 }
 
-input:focus, textarea:focus, select:focus {
-  outline: none;
+/* Keyboard users need to see where they are. The previous rule stripped the
+   outline from every focused field with no replacement, which left tab
+   navigation invisible. :focus-visible keeps mouse clicks clean. */
+:focus-visible {
+  outline: 3px solid var(--main-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Lets a keyboard user jump straight past the nav to the page content. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--main-color);
+  color: #ffffff;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+  left: 0;
 }
 
 @media (min-width:1700px) {
@@ -77,4 +100,3 @@ input:focus, textarea:focus, select:focus {
 		padding: 0 150px;
 	}
 }
-
