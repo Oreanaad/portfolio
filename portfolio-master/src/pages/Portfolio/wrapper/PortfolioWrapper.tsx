@@ -11,7 +11,7 @@ import './styled-components/portfolioWrapperLink.styled.css'
 
 function PortfolioWrapper() {
   const start = "<"
-  const mid = "ME"
+  const mid = "OA"
   const end = "/>"
   const location = useLocation()
   const { t } = useI18n()
